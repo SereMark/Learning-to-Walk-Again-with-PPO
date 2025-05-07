@@ -1,0 +1,27 @@
+name: rl_env_windows
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - ffmpeg
+  - swig
+  - pyopengl
+  - matplotlib
+  - seaborn
+  - ipykernel
+  - ipython
+  - ipywidgets
+  - tqdm
+  - pip:
+      - jax==0.4.13
+      - jaxlib==0.4.13
+      - gymnasium==0.27.1
+      - "gymnasium[box2d]"
+      - pyvirtualdisplay
+      - imageio-ffmpeg
+      - moviepy==1.0.3
+      - onnx
+      - onnx2pytorch==0.4.1
+      - numpy==1.26.4
