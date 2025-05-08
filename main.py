@@ -143,7 +143,7 @@ class PPOAgent:
         self.ac = ActorCritic(obs_dim, act_dim).to(self.device)
         self.opt = optim.Adam(self.ac.parameters(), lr=LR_START, eps=1e-5)
         self.lr_scheduler = optim.lr_scheduler.LambdaLR(
-            self.opt, lambda f: 1 - f)
+            self.opt, lambda f: 1 - f / MAX_EPISODES)
         self.buf = RolloutBuffer()
         self.obs_norm = RunningNorm(obs_dim)
         self.ep_returns = deque(maxlen=100)
@@ -191,7 +191,7 @@ class PPOAgent:
                 self.opt.zero_grad(); loss.backward()
                 nn.utils.clip_grad_norm_(self.ac.parameters(), MAX_GRAD_NORM)
                 self.opt.step()
-        self.lr_scheduler.step(epoch_i / MAX_EPISODES)
+        self.lr_scheduler.step()
 
     def train(self):
         for ep in tqdm(range(1, MAX_EPISODES + 1), ncols=80):
