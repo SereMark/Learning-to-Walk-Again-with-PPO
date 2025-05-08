@@ -199,7 +199,6 @@ class PPOAgent:
             self.update(ep)
             if ep % 10 == 0 and self.ep_returns:
                 avg = np.mean(self.ep_returns)
-                print(f"[{ep:4d}/{MAX_EPISODES}] avg100 = {avg:+6.1f}")
                 if avg > 300:
                     print("Solved, stopping early.")
                     break
