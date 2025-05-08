@@ -142,8 +142,7 @@ class PPOAgent:
 
         self.ac = ActorCritic(obs_dim, act_dim).to(self.device)
         self.opt = optim.Adam(self.ac.parameters(), lr=LR_START, eps=1e-5)
-        self.lr_scheduler = optim.lr_scheduler.LambdaLR(
-            self.opt, lambda f: 1 - f / MAX_EPISODES)
+        self.lr_scheduler = optim.lr_scheduler.LambdaLR(self.opt, lambda f: 1 - f / MAX_EPISODES)
         self.buf = RolloutBuffer()
         self.obs_norm = RunningNorm(obs_dim)
         self.ep_returns = deque(maxlen=100)
